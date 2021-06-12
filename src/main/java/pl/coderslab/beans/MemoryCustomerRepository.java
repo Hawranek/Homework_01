@@ -1,6 +1,7 @@
 package pl.coderslab.beans;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -10,8 +11,14 @@ import java.util.List;
 public class MemoryCustomerRepository implements CustomerRepository {
     private List<Customer> customerList;
     private CustomerLogger customerLogger;
+    private FileCustomerLogger fileCustomerLogger;
 
     @Autowired
+    public MemoryCustomerRepository(FileCustomerLogger fileCustomerLogger){
+        this.fileCustomerLogger=fileCustomerLogger;
+        this.customerList = new ArrayList<>();
+    }
+
     public MemoryCustomerRepository(CustomerLogger customerLogger) {
         this.customerLogger = customerLogger;
         this.customerList = new ArrayList<>();
@@ -21,7 +28,7 @@ public class MemoryCustomerRepository implements CustomerRepository {
     @Override
     public void add(Customer customer) {
         this.customerList.add(customer);
-        this.customerLogger.log();
+        this.fileCustomerLogger.log();
     }
 
     @Override
