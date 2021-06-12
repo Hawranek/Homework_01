@@ -38,4 +38,13 @@ public class Customer {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Customer[" +
+                "id=" + id +
+                ", imię=" + firstName +
+                ", nazwisko=" + lastName +
+                ']';
+    }
 }
